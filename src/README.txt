@@ -2,4 +2,6 @@ You must have a recent version of Python installed on your computer in order to 
 
 For instructions on how to accomplish this, visit https://www.python.org/.
 
+To install the needed libraries, run "python -m pip install --user numpy scipy matplotlib" from the command line.
+
 This Python script automatically imports the raw data from the src/data folder. The CSV files MUST be located in this folder, otherwise the script will not work.
