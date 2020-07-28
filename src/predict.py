@@ -1,11 +1,10 @@
 import scipy as s
+import scipy.stats
 import numpy as n
 import matplotlib as m
 import csv
 
-fg = []
-threePt = []
-margin = []
+data = {'fg': [], 'threePt': [], 'margin': []}
 
 confidence = 0.95
 n = 5
@@ -17,58 +16,99 @@ n = 5
 
 
 def calculateConfidence(input):
-    m = s.mean(data)
+    m = s.mean(input)
+    std_err = s.stats.sem(input)
+    h = std_err * s.stats.t.ppf((1 + confidence) / 2, n - 1)
+    start = m - h
+    print(start)
 
 
 def getData(r):
-    fg.append(r['FG %'])
-    threePt.append(r['3pt %'])
-    margin.append(r['MofV'])
+
+    data['fg'].append(float(r['FG%']))
+    data['threePt'].append(float(r['3pt%']))
+    data['margin'].append(float(r['MofV']))
 
 
-with open('data/UTA5.csv', newline='', encoding='utf8') as csvfile:
+with open('data/UTA5.csv', newline='') as csvfile:
     reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
 
     for row in reader:
         getData(row)
-        # print(row['FG %'])
-    print(margin)
-    fg = []
-    threePt = []
-    margin = []
-    print(margin)
+
+    calculateConfidence(data['fg'])
+    calculateConfidence(data['threePt'])
+    calculateConfidence(data['margin'])
+
+data = {'fg': [], 'threePt': [], 'margin': []}
+print()
 
 
-# with open('data/SAC5.csv', newline='', encoding='utf8') as csvfile:
-#     reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
+with open('data/SAC5.csv', newline='') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
 
-#     for row in reader:
-#         print(row)
+    for row in reader:
+        getData(row)
 
+    calculateConfidence(data['fg'])
+    calculateConfidence(data['threePt'])
+    calculateConfidence(data['margin'])
 
-# with open('data/MIL5.csv', newline='', encoding='utf8') as csvfile:
-#     reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
-
-#     for row in reader:
-#         print(row)
-
-
-# with open('data/PHI5.csv', newline='', encoding='utf8') as csvfile:
-#     reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
-
-#     for row in reader:
-#         print(row)
+data = {'fg': [], 'threePt': [], 'margin': []}
+print()
 
 
-# with open('data/GSW5.csv', newline='', encoding='utf8') as csvfile:
-#     reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
+with open('data/MIL5.csv', newline='') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
 
-#     for row in reader:
-#         print(row)
+    for row in reader:
+        getData(row)
+
+    calculateConfidence(data['fg'])
+    calculateConfidence(data['threePt'])
+    calculateConfidence(data['margin'])
+
+data = {'fg': [], 'threePt': [], 'margin': []}
+print()
 
 
-# with open('data/LAC5.csv', newline='', encoding='utf8') as csvfile:
-#     reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
+with open('data/PHI5.csv', newline='') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
 
-#     for row in reader:
-#         print(row)
+    for row in reader:
+        getData(row)
+
+    calculateConfidence(data['fg'])
+    calculateConfidence(data['threePt'])
+    calculateConfidence(data['margin'])
+
+data = {'fg': [], 'threePt': [], 'margin': []}
+print()
+
+
+with open('data/GSW5.csv', newline='') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
+
+    for row in reader:
+        getData(row)
+
+    calculateConfidence(data['fg'])
+    calculateConfidence(data['threePt'])
+    calculateConfidence(data['margin'])
+
+data = {'fg': [], 'threePt': [], 'margin': []}
+print()
+
+
+with open('data/LAC5.csv', newline='') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
+
+    for row in reader:
+        getData(row)
+
+    calculateConfidence(data['fg'])
+    calculateConfidence(data['threePt'])
+    calculateConfidence(data['margin'])
+
+data = {'fg': [], 'threePt': [], 'margin': []}
+print()
