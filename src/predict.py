@@ -3,9 +3,6 @@ import numpy as n
 import matplotlib as m
 import csv
 
-global fg
-global threePt
-global margin
 fg = []
 threePt = []
 margin = []
@@ -29,14 +26,6 @@ def getData(r):
     margin.append(r['MofV'])
 
 
-def clearLists():
-    print('heck')
-    fg = []
-    threePt = []
-    margin = []
-    print(margin)
-
-
 with open('data/UTA5.csv', newline='', encoding='utf8') as csvfile:
     reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
 
@@ -44,7 +33,9 @@ with open('data/UTA5.csv', newline='', encoding='utf8') as csvfile:
         getData(row)
         # print(row['FG %'])
     print(margin)
-    clearLists()
+    fg = []
+    threePt = []
+    margin = []
     print(margin)
 
 
