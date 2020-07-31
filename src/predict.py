@@ -7,8 +7,10 @@ import scipy.stats
 
 warnings.filterwarnings("ignore")
 
+# data object containing lists for each major stat category
 data = {'fg': [], 'threePt': [], 'margin': []}
 
+# Not totally sure what this does?
 confidence = 0.95
 n = 5
 
@@ -21,7 +23,8 @@ def calculateConfidence(input):
     end = m + h
     print(f'Start: {start}\nEnd: {end}\n\n')
 
-
+# Grabs each of these fields from each row of the
+# CSV and adds it to its corresponding list
 def getData(r):
 
     data['fg'].append(float(r['FG%']))
@@ -37,6 +40,7 @@ with open('data/UTA5.csv', newline='') as csvfile:
 
     for row in reader:
         getData(row)
+        print(row)
 
     print(f'Field Goal Confidence Interval:')
     calculateConfidence(data["fg"])
