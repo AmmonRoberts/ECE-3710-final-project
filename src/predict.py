@@ -5,14 +5,17 @@ import csv
 import warnings
 import scipy.stats
 
+# Ignore deprecation warnings
 warnings.filterwarnings("ignore")
 
 # data object containing lists for each major stat category
 data = {'fg': [], 'threePt': [], 'margin': []}
 
-# Not totally sure what this does?
+# Declare some constants: confidence level, array size (number of games)
 confidence = 0.95
 n = 5
+
+# Calculates the interval based on the array that was given
 
 
 def calculateConfidence(input):
@@ -25,6 +28,8 @@ def calculateConfidence(input):
 
 # Grabs each of these fields from each row of the
 # CSV and adds it to its corresponding list
+
+
 def getData(r):
 
     data['fg'].append(float(r['FG%']))
