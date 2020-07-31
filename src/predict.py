@@ -4,8 +4,10 @@ import numpy as n
 import matplotlib as m
 import csv
 
+# data object containing lists for each major stat category
 data = {'fg': [], 'threePt': [], 'margin': []}
 
+# Not totally sure what this does?
 confidence = 0.95
 n = 5
 
@@ -22,7 +24,8 @@ def calculateConfidence(input):
     start = m - h
     print(start)
 
-
+# Grabs each of these fields from each row of the
+# CSV and adds it to its corresponding list
 def getData(r):
 
     data['fg'].append(float(r['FG%']))
@@ -35,6 +38,7 @@ with open('data/UTA5.csv', newline='') as csvfile:
 
     for row in reader:
         getData(row)
+        print(row)
 
     calculateConfidence(data['fg'])
     calculateConfidence(data['threePt'])
