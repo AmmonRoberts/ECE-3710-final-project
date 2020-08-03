@@ -17,9 +17,8 @@ data = {'fg': [], 'threePt': [], 'margin': []}
 confidence = 0.95
 n = 5
 
+
 # Calculates the interval based on the array that was given
-
-
 def calculate_confidence(input):
     m = s.mean(input)
     std_err = s.stats.sem(input)
@@ -28,10 +27,9 @@ def calculate_confidence(input):
     end = m + h
     print(f'Start: {start}\nEnd: {end}\n\n')
 
+
 # Grabs each of these fields from each row of the
 # CSV and adds it to its corresponding list
-
-
 def get_data(r):
 
     data['fg'].append(float(r['FG%']))
@@ -39,6 +37,8 @@ def get_data(r):
     data['margin'].append(float(r['MofV']))
 
 
+# Opens the CSV with the given filename, then iterates through it, grabbing the neccessary data from each row
+# Then calls the calculate_confidence function to calculate the interval
 def load_csv_calculate_and_print(filename):
     global data
     print(f'{filename}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
@@ -60,11 +60,13 @@ def load_csv_calculate_and_print(filename):
     data = {'fg': [], 'threePt': [], 'margin': []}
 
 
+# Function for disabling stdout, so that calling load_csv_calculate_and_print doesn't print out the contents of the CSV
 def disable_print():
     text_trap = io.StringIO()
     sys.stdout = text_trap
 
 
+# Enables stdout again, so data can be displayed
 def enable_print():
     sys.stdout = sys.__stdout__
 
