@@ -2,6 +2,8 @@ You must have Python 3.8 installed on your computer in order to run this script.
 
 For instructions on how to accomplish this, visit https://www.python.org/.
 
+For instructions installing pip, visit https://pip.pypa.io/en/stable/installing/.
+
 To install the needed libraries, run "python -m pip install --user numpy scipy matplotlib" from the command line.
 
 To run the script, open a Command Window or terminal in the src folder, then run "python predict.py" or "python3 predict.py", depending on what version of Python your Python path variable points to. 
