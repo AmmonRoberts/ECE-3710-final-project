@@ -43,7 +43,6 @@ with open('data/UTA5.csv', newline='') as csvfile:
     calculateConfidence(data['fg'])
     calculateConfidence(data['threePt'])
     calculateConfidence(data['margin'])
-
 data = {'fg': [], 'threePt': [], 'margin': []}
 print()
 
