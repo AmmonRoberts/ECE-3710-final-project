@@ -69,7 +69,7 @@ def calculate_mean(input, filename, field):
 
 # Take and compare sample mean data for jazz and other 
 # team and determine winner, MofV being the tie breaker
-def predict_wins(utahJazz, otherTeam):
+def compare_stats(utahJazz, otherTeam):
     # if jazz are better at both, we predict a win
     if utahJazz['fg'] > otherTeam['fg']:
         if utahJazz['threePt'] > otherTeam['threePt']:
@@ -81,7 +81,7 @@ def predict_wins(utahJazz, otherTeam):
     # tie-breaker
     elif utahJazz['margin'] > otherTeam['margin']:
         win += 1
-        else loss += 1
+        loss += 1
 
 
 # Grabs each of these fields from each row of the
