@@ -30,8 +30,6 @@ means = {}
 # Use MoV as a tie-breaker between win/loss
 
 
-
-
 # Calculates the interval based on the array that was given
 def calculate_confidence(input):
     m = s.mean(input)
@@ -52,9 +50,9 @@ def calculate_mean(input, filename, field):
             utahJazz_means['fg'] = mean
         elif field == '3pt':
             utahJazz_means['threePt'] = mean
-        elif field == 'margin': 
+        elif field == 'margin':
             utahJazz_means['margin'] = mean
-        print(utahJazz_means)
+        # print(utahJazz_means)
 
     # other team
     else:
@@ -62,26 +60,33 @@ def calculate_mean(input, filename, field):
             otherTeam_means['fg'] = mean
         elif field == '3pt':
             otherTeam_means['threePt'] = mean
-        elif field == 'margin': 
+        elif field == 'margin':
             otherTeam_means['margin'] = mean
-        print(otherTeam_means)
+        # print(otherTeam_means)
+
+    compare_stats(utahJazz_means, otherTeam_means)
 
 
-# Take and compare sample mean data for jazz and other 
+# Take and compare sample mean data for jazz and other
 # team and determine winner, MofV being the tie breaker
 def compare_stats(utahJazz, otherTeam):
+    global win
+    global loss
     # if jazz are better at both, we predict a win
     if utahJazz['fg'] > otherTeam['fg']:
         if utahJazz['threePt'] > otherTeam['threePt']:
             win += 1
+            print('Jazz wins\n')
     # if jazz are worse at both, we predict a loss
     elif utahJazz['fg'] < otherTeam['fg']:
         if utahJazz['threePt'] < otherTeam['threePt']:
             loss += 1
+            print('Jazz loses\n')
     # tie-breaker
     elif utahJazz['margin'] > otherTeam['margin']:
         win += 1
         loss += 1
+        print('Tie\n')
 
 
 # Grabs each of these fields from each row of the
@@ -133,6 +138,8 @@ def disable_print():
     sys.stdout = text_trap
 
 # Enables stdout again, so data can be displayed
+
+
 def enable_print():
     sys.stdout = sys.__stdout__
 
@@ -143,4 +150,5 @@ load_csv_calculate_and_print("MIL5.csv")
 load_csv_calculate_and_print("SAC5.csv")
 load_csv_calculate_and_print("GSW5.csv")
 
-print(means)
+
+print(win, loss)
