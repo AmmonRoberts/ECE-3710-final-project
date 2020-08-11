@@ -17,6 +17,7 @@ uta_means = {'fg': -1, 'threePt': -1, 'margin': -1}
 # Create dummy list for other teams, then use them to compare to the uta means
 # Add to each counter
 # Clear out the dummy list
+# Use MoV as a tie-breaker between win/loss
 
 win = 0
 loss = 0
