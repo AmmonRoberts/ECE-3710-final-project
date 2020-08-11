@@ -1,5 +1,5 @@
 import scipy as s
-import numpy as n
+import numpy as num
 import matplotlib as m
 import csv
 import io
@@ -72,7 +72,7 @@ def enable_print():
 
 
 load_csv_calculate_and_print("UTA5.csv")
-load_csv_calculate_and_print("GSW5.csv")
-load_csv_calculate_and_print("UTA5.csv")
-load_csv_calculate_and_print("GSW5.csv")
+load_csv_calculate_and_print("LAC5.csv")
+load_csv_calculate_and_print("MIL5.csv")
+load_csv_calculate_and_print("SAC5.csv")
 load_csv_calculate_and_print("GSW5.csv")
