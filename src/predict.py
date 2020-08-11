@@ -15,14 +15,14 @@ data = {'fg': [], 'threePt': [], 'margin': []}
 
 # Declare some constants: confidence level, array size (number of games)
 confidence = 0.95
-n = 5
+numGames = 5
 
 
 # Calculates the interval based on the array that was given
 def calculate_confidence(input):
     m = s.mean(input)
     std_err = s.stats.sem(input)
-    h = std_err * s.stats.t.ppf((1 + confidence) / 2, n - 1)
+    h = std_err * s.stats.t.ppf((1 + confidence) / 2, numGames - 1)
     start = m - h
     end = m + h
     print(f'Start: {start}\nEnd: {end}\n\n')
