@@ -83,11 +83,11 @@ def compare_stats(utahJazz, otherTeam):
         loss += 1
         print('Jazz lose\n')
     # tie-breaker
-    else utahJazz['margin'] > otherTeam['margin']:
-        if utahJazz['margin'] < otherTeam['margin']:
-            loss += 1
-        else
+    else:
+        if utahJazz['margin'] > otherTeam['margin']:
             win += 1
+        else:
+            loss += 1
             
 
 
