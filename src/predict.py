@@ -160,5 +160,4 @@ with open(f'data/ACTUAL.csv', newline='') as csvfile:
             actual_Win += 1
         elif row['Result'] == 'L':
             actual_Loss += 1
-print(
-    f'Jazz actual record over their next 5 games (W/L): {actual_Win}-{actual_Loss}\n')
+print(f'Jazz actual record over their next 5 games (W/L): {actual_Win}-{actual_Loss}\n')
