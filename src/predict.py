@@ -7,27 +7,22 @@ import sys
 import warnings
 import scipy.stats
 
-# Declare some constants: confidence level, array size (number of games)
-confidence = 0.95
-numGames = 5
-# Counters
-win = 0
-loss = 0
-
 # Ignore deprecation warnings
 warnings.filterwarnings("ignore")
+
+# Declare some constants: confidence level, array size (number of games), W/L counters
+confidence = 0.95
+numGames = 5
+win = 0
+loss = 0
+actualWin = 0
+actualLoss = 0
 
 # Dictionary of lists containing lists for each major stat category
 data = {'fg': [], 'threePt': [], 'margin': []}
 utahJazz_means = {'fg': -1, 'threePt': -1, 'margin': -1}
 otherTeam_means = {'fg': -1, 'threePt': -1, 'margin': -1}
 means = {}
-
-
-# Create dummy list for other teams, then use them to compare to the uta means
-# Add to each counter
-# Clear out the dummy list
-# Use MoV as a tie-breaker between win/loss
 
 
 # Calculates the interval based on the array that was given
@@ -41,6 +36,9 @@ def calculate_confidence(input):
 
 
 def calculate_mean(input, filename, field):
+    global utahJazz_means
+    global otherTeam_means
+
     mean = s.mean(input)
     team = filename.split('5')[0]
     means[f'{team}'] = mean
@@ -52,7 +50,6 @@ def calculate_mean(input, filename, field):
             utahJazz_means['threePt'] = mean
         elif field == 'margin':
             utahJazz_means['margin'] = mean
-        # print(utahJazz_means)
 
     # other team
     else:
@@ -62,9 +59,8 @@ def calculate_mean(input, filename, field):
             otherTeam_means['threePt'] = mean
         elif field == 'margin':
             otherTeam_means['margin'] = mean
-        # print(otherTeam_means)
 
-    compare_stats(utahJazz_means, otherTeam_means)
+    # compare_stats(utahJazz_means, otherTeam_means)
 
 
 # Take and compare sample mean data for jazz and other
@@ -73,21 +69,22 @@ def compare_stats(utahJazz, otherTeam):
     global win
     global loss
 
-    if 
     # if jazz are better at both, we predict a win
     if utahJazz['fg'] > otherTeam['fg'] and utahJazz['threePt'] > otherTeam['threePt']:
         win += 1
-        print('Jazz wins\n')
+        print('\nJazz win\n')
     # if jazz are worse at both, we predict a loss
     elif utahJazz['fg'] < otherTeam['fg'] and utahJazz['threePt'] < otherTeam['threePt']:
         loss += 1
-        print('Jazz lose\n')
+        print('\nJazz lose\n')
     # tie-breaker
     else:
         if utahJazz['margin'] > otherTeam['margin']:
             win += 1
+            print('\nJazz win\n')
         else:
             loss += 1
+            print('\nJazz lose\n')
             
 
 
@@ -104,16 +101,15 @@ def get_data(r):
 # Then calls the calculate_confidence function to calculate the interval
 def load_csv_calculate_and_print(filename):
     global data
-    print(f'{filename}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
-    disable_print()
+    global utahJazz_means
+    global otherTeam_means
+
+    print(f'{filename}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
     with open(f'data/{filename}', newline='') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
 
         for row in reader:
             get_data(row)
-            print(row)
-
-        enable_print()
 
         # The following function calls
         # print(f'Field Goal Confidence Interval:')
@@ -129,10 +125,10 @@ def load_csv_calculate_and_print(filename):
         calculate_mean(data["threePt"], filename, '3pt')
         print(f'Margin of Victory Mean:')
         calculate_mean(data["margin"], filename, 'margin')
-        
 
+    compare_stats(utahJazz_means, otherTeam_means)
     data = {'fg': [], 'threePt': [], 'margin': []}
-    print('\n\n')
+    print('\n')
 
 
 # Function for disabling stdout, so that calling load_csv_calculate_and_print doesn't print out the contents of the CSV
@@ -146,12 +142,20 @@ def disable_print():
 def enable_print():
     sys.stdout = sys.__stdout__
 
-
+print('\n')
 load_csv_calculate_and_print("UTA5.csv")
 load_csv_calculate_and_print("LAC5.csv")
 load_csv_calculate_and_print("MIL5.csv")
 load_csv_calculate_and_print("SAC5.csv")
 load_csv_calculate_and_print("GSW5.csv")
 
+print(f'Jazz predicted record over their next 5 games (W/L): {win}-{loss}\n')
 
-print(win, loss)
+with open(f'data/ACTUAL.csv', newline='') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
+    for row in reader:
+        if row['result'] == 'W':
+            actualWin += 1
+        elif row['result'] == 'L':
+            actualLoss += 1
+print(f'Jazz actual record over their next 5 games (W/L): {actualWin}-{actualLoss}\n')
