@@ -10,13 +10,13 @@ How to run the script:
 This Python script automatically imports the raw data from the src/data folder. 
 The CSV files MUST be located in this folder, otherwise the script will not work. 
 The CSV files must also be saved without encoding options, as the script does not support encoding.
-The script currently only supports a dataset of 5 items, but this can be changed if n is set equal to the number of tiems in a sample or dataset. 
+The script currently only supports a dataset of 5 items, but this can be changed if n is set equal to the number of items in a sample or dataset. 
 
 This script can also be further changed to work for data from other teams.
 
 This can be done by doing the following:
 1. Obtain the game data for a team of your choosing from https://www.basketball-reference.com/
-2. Copy the data for field goals, three pointers, and margin of vitory into a CSV, following the format of the included CSVs (including headers)
+2. Copy the data for field goals, three pointers, and margin of victory into a CSV, following the format of the included CSVs (including headers)
 3. Edit the following lines of code (lines 145 - 149) and use the names of the CSVs you created:
     `
     load_csv_calculate_and_print("TEAM.csv")
