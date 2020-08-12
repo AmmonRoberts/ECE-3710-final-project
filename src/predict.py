@@ -66,6 +66,8 @@ def calculate_mean(input, filename, field):
             otherTeam_means['margin'] = mean
         print(otherTeam_means)
 
+    compare_stats(utahJazz_means, otherTeam_means)
+
 
 # Take and compare sample mean data for jazz and other 
 # team and determine winner, MofV being the tie breaker
@@ -81,7 +83,12 @@ def compare_stats(utahJazz, otherTeam):
     # tie-breaker
     elif utahJazz['margin'] > otherTeam['margin']:
         win += 1
-        loss += 1
+
+    elif utahJazz['margin'] < otherTeam['margin']:
+        loss += 1   
+    
+    print(f'Win/Loss:{win}-{loss}\n\n')
+    
 
 
 # Grabs each of these fields from each row of the
@@ -122,6 +129,7 @@ def load_csv_calculate_and_print(filename):
         calculate_mean(data["threePt"], filename, '3pt')
         print(f'Margin of Victory Mean:')
         calculate_mean(data["margin"], filename, 'margin')
+        
 
     data = {'fg': [], 'threePt': [], 'margin': []}
     print('\n\n')
